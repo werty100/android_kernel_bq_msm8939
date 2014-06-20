@@ -1457,6 +1457,7 @@ config PICMT_COMMON
 endmenu
 
 source "arch/arm/common/Kconfig"
+source "arch/arm/hotplug/Kconfig"
 
 menu "Bus support"
 
