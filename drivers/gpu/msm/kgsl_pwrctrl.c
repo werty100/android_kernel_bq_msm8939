@@ -1407,7 +1407,7 @@ int kgsl_pwrctrl_init(struct kgsl_device *device)
 					max_vote_buslevel = i;
 			}
 
-			for (k = 0; k < n; k++)
+			for (k = 0; k < n && k < KGSL_MAX_PWRLEVELS; k++)
 				if (vector->ib == pwr->bus_ib[k]) {
 					static uint64_t last_ib = 0xFFFFFFFF;
 					/*
@@ -1430,7 +1430,8 @@ int kgsl_pwrctrl_init(struct kgsl_device *device)
 				pwr->bus_ib[k] = vector->ib;
 				n++;
 				/* find which pwrlevels use this ib */
-				for (m = 0; m < pwr->num_pwrlevels - 1; m++) {
+				for (m = 0; m < pwr->num_pwrlevels - 1 &&
+				     m < KGSL_MAX_PWRLEVELS; m++) {
 					if (pdata->bus_scale_table->
 						usecase[pwr->pwrlevels[m].
 						bus_freq].vectors[0].ib
